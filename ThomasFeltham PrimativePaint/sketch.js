@@ -11,10 +11,14 @@ let y = mouseY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  background(0, 0, 0);
+  background(0);
 }
 
 function draw() {
+  textSize(30);
+  textFont('Times New Roman');
+  fill(255);
+  text("Thomas G. Feltham", windowWidth-250, windowHeight-10);
   
 }
 
@@ -35,3 +39,5 @@ function keyTyped(){
   }
 
 }
+
+
