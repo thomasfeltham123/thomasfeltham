@@ -17,8 +17,24 @@ function setup() {
 function draw() {
   textSize(30);
   textFont('Times New Roman');
-  fill(255);
+  let count = 0;
+  let addSub = -1;
+if(count === 0){
+  fill(random(1, 255), random(1, 255), random(1, 255));
+  addSub *= -1;
+}
+else if(count === 60){
+  fill(random(1, 255), random(1, 255), random(1, 255));
+  addSub *= -1;
+}
+
+count += addSub;
   text("Thomas G. Feltham", windowWidth-250, windowHeight-10);
+
+
+  // for( i=0; i<=0; i--){
+  //   background(random(1, 255), random(1, 255), random(1, 255))
+  // }
   
 }
 
