@@ -7,6 +7,17 @@
 
 let x = mouseX;
 let y = mouseY;
+//let circSize = 1;
+
+//fill(255);
+ // circle(circSize, windowWidth -= 10, windowHeight -= 10);
+ // if(circSize >= 1){
+ //   circSize += 10;
+ // }
+ // else if(circSize >= 100){
+  //  circSize -= 10;
+  //}
+
 
 
 function setup() {
@@ -15,6 +26,7 @@ function setup() {
 }
 
 function draw() {
+
   textSize(30);
   textFont('Times New Roman');
   let count = 0;
@@ -23,7 +35,7 @@ if(count === 0){
   fill(random(1, 255), random(1, 255), random(1, 255));
   addSub *= -1;
 }
-else if(count === 60){
+else if(count === 6){
   fill(random(1, 255), random(1, 255), random(1, 255));
   addSub *= -1;
 }
@@ -32,13 +44,11 @@ count += addSub;
   text("Thomas G. Feltham", windowWidth-250, windowHeight-10);
 
 
-  // for( i=0; i<=0; i--){
-  //   background(random(1, 255), random(1, 255), random(1, 255))
-  // }
-  
 }
 
 keyTyped();
+
+
 
 function keyTyped(){
   if(key === 'a'){
@@ -53,7 +63,9 @@ function keyTyped(){
     fill(random(1, 255), random(1, 255), random(1, 255));
     triangle(mouseX += 20, mouseY +=20 , mouseX -= 20, mouseY -= 20, mouseX +=20, mouseY -= 20);
   }
-
+else if(key === " "){
+   background(0);
+  }
 }
 
 
