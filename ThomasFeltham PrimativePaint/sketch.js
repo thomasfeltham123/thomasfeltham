@@ -5,18 +5,11 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let x = mouseX;
-let y = mouseY;
-//let circSize = 1;
+let x;
+let y;
+let rectSize = 100;
 
-//fill(255);
- // circle(circSize, windowWidth -= 10, windowHeight -= 10);
- // if(circSize >= 1){
- //   circSize += 10;
- // }
- // else if(circSize >= 100){
-  //  circSize -= 10;
-  //}
+
 
 
 
@@ -27,26 +20,25 @@ function setup() {
 
 function draw() {
 
-  textSize(30);
-  textFont('Times New Roman');
-  let count = 0;
-  let addSub = -1;
-if(count === 0){
-  fill(random(1, 255), random(1, 255), random(1, 255));
-  addSub *= -1;
+  
+rect(windowWidth/2, windowHeight/2, rectSize, rectSize);
+if(rectSize <= 10){
+  rectSize *= 2;
 }
-else if(count === 6){
-  fill(random(1, 255), random(1, 255), random(1, 255));
-  addSub *= -1;
+else if(rectSize >= 150){
+  rectSize *= 5;
 }
 
-count += addSub;
+
+  fill(10, 100, 170);
+  textSize(30);
+  textFont('Times New Roman');
   text("Thomas G. Feltham", windowWidth-250, windowHeight-10);
 
 
 }
 
-keyTyped();
+keyTyped()
 
 
 
