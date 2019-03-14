@@ -5,23 +5,30 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
-let xPosition = 1; 
-let yPosition = 1;
+let inc = 0.01; 
+let start = 0;
+
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //noLoop();
+  background(220);
+  
 }
 
 function draw() {
-  background(220);
+  
+  randomTerrain();
 
-  generateTerrain();
 }
 
-function generateTerrain(){
-for(let i=0; i<=width; i++)
+function randomTerrain(){
+  background(255);
   fill(0);
-  rect(xPosition, yPosition, 10, 1000);
-  xPosition +=10;
-  yPosition +=10;
+  let xOff = start;
+  for(let x=0; x<width; x++){
+    let y = noise(xOff) * height;
+    rect(x, y, 5, height - y);
+    xOff += inc;
+  }
+  start += inc;
 }
