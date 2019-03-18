@@ -63,7 +63,7 @@ function draw() {
   //Combinations of Transformations
 
   x+= xSpeed;
-  if(x <0 || x> width){
+  if(x < 0 || x > width){
     xSpeed *-1;
   }
 }
