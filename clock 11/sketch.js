@@ -38,6 +38,13 @@ function draw() {
   line(0, 0, 200, 0);
   pop();
 
+  push();
+  rotate(radians(frameCount/1000));
+  strokeWeight(5);
+  line(0, 0, 0, -230);
+
+  pop();
+
   pop();
 }
 
