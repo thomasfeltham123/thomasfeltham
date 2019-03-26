@@ -8,7 +8,9 @@
 let spaceman = [];
 let speed = 20;
 let counter = 0;
-
+let sprite = spaceman[counter];
+let x = 400;
+let y = 400;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -26,8 +28,9 @@ function preload(){
 function draw() {
   preload();
   background(220);
-  image(spaceman[counter], width/2, height/2)
+  image(sprite, x, y)
   spriteCycle();
+  //keyTyped();
 
 }
 
@@ -39,6 +42,15 @@ function spriteCycle(){
     counter ++;
     if (counter > 8) counter = 0;
   }
+}
+
+function keyTyped(){
+
+  if(key === 'LEFT_ARROW'){
+    x -= 5;
+  }
+
+
 }
 
 
