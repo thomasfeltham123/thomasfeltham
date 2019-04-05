@@ -12,6 +12,7 @@ let sprite = spaceman[counter];
 let x = 400;
 let y = 400;
 let background;
+let facingSide;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -34,9 +35,10 @@ function draw() {
   image(background, windowWidth/2, height/2);
   pop();
 
-  image(spaceman[counter], mouseX, mouseY);
+
+  image(spaceman[counter], x, y);
   spriteCycle();
-  //moving();
+  keyPressed();
 
 }
 
@@ -46,18 +48,37 @@ function draw() {
 function spriteCycle(){
   if (frameCount % int(speed) === 0){
     counter ++;
-    if (counter > 8) counter = 0;
+    if (counter >= 8) counter = 0;
   }
 }
 
-//function moving(){
+function keyPressed(){
 
-  
+  if(keyCode === LEFT_ARROW){
+    if(x >= windowWidth){
+      x -= 5;
+    }
+  }
 
-  
+}
+
+function leftOrRight(){
+
+  if(mouseX > pmouseX){
+    facingSide = 2;//right
+  }
+  if(mouseX < pmouseX){
+    facingSide = 1;//left
+  }
+  if(mouseX === pmouseX){
+    facingSide = 0;
+  }
 
 
-//}
+  if(facingSide === 1){
+    image(spaceMan[3], mouseX, mouseY);
+  }
+}
 
 
 
