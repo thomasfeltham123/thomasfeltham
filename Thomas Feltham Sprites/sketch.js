@@ -55,30 +55,37 @@ function spriteCycle(){
 function keyPressed(){
 
   if(keyCode === LEFT_ARROW){
-    if(x >= windowWidth){
-      x -= 5;
+    if(x <= windowWidth){
+      counter = 7;
+      x -= 1;
     }
   }
 
-}
-
-function leftOrRight(){
-
-  if(mouseX > pmouseX){
-    facingSide = 2;//right
-  }
-  if(mouseX < pmouseX){
-    facingSide = 1;//left
-  }
-  if(mouseX === pmouseX){
-    facingSide = 0;
-  }
-
-
-  if(facingSide === 1){
-    image(spaceMan[3], mouseX, mouseY);
+  if(keyCode === RIGHT_ARROW){
+    if(x >= windowWidth){
+      counter = 3;
+      x += 1;
+    }
   }
 }
+
+// function leftOrRight(){
+
+//   if(mouseX > pmouseX){
+//     facingSide = 2;//right
+//   }
+//   if(mouseX < pmouseX){
+//     facingSide = 1;//left
+//   }
+//   if(mouseX === pmouseX){
+//     facingSide = 0;
+//   }
+
+
+//   if(facingSide === 1){
+//     image(spaceMan[3], mouseX, mouseY);
+//   }
+// }
 
 
 
