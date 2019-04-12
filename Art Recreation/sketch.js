@@ -28,12 +28,21 @@ function draw() {
 function drawArt(){
 
 
-  for(let i = 1; i <= 99; i ++){
-    x = random(200, 600);
+  for(let i = 1; i <= 70; i ++){
+
+    if(x >= width/2){//Right Side
+      x = random(width/4, width/2);
+    }
+
+    if(x <= width/2){//Left Side
+      x = random(width/2 * 1.5, 100);
+    }
+
+    //x = random(200, 600);
     y = random(1, 700);
 
     line(lineX, lineY, x, y);
-
+    
     lineX = x;
     lineY = y;
   }
