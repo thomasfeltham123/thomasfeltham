@@ -7,8 +7,8 @@
 
 let lineX = 650;
 let lineY = 700;
-let x = 0;
-let y = 0;
+let x = -100;
+let y = -100;
 
 
 
