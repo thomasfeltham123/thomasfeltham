@@ -33,7 +33,7 @@ function makeBackground(){
 
 function makeArt(){
   strokeWeight(6);
-  for(let x = 0; x < 100; x++){
+  for(let x = 0; x < 130; x++){
     fill(100, random(0, 255), 100);
     rect(random(0, 4500), random(0, 3000), random(10, 150), random(10, 150));
     ellipse(random(0, 4500), random(0, 3000), random(10, 200), random(10, 200));
