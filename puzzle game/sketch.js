@@ -71,7 +71,7 @@ function drawGrid(){
 
 function didYouWin(){
   for(let i = 0; i < NUM_COLS; i++){
-    if(gridData[i][i] === 0 ){
+    if(gridData[i][i] === 0 || 255 ){
       textSize(40);
       text('You Win!', Width/2, Height/2);
       fill(100, 100, 100);
