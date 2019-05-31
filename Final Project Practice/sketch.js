@@ -35,12 +35,9 @@ function preload(){
   ground.addImage(groundImg);
 
   //Loads the blue sky and clouds from mario
-  skyImg = loadImage('assets/SkyBackground11.png');
-  push();
-  scale(0.5);
-  skyBackground = createSprite(0, 0);
-  skyBackground.addImage(skyImg);
-  pop(0);
+  // skyImg = loadImage('assets/SkyBackground11.png');
+  // skyBackground = createSprite(0, 0);
+  // skyBackground.addImage(skyImg);
 }
 
 function setup() {
@@ -48,7 +45,7 @@ function setup() {
 }
 
 function draw() {
-  background(200);
+  background(70, 140, 180);
   makeSprites();
   moving();
 }
@@ -73,8 +70,8 @@ function moving(){
      }
 
      if(keyDown(UP_ARROW)){
-       
        mario.changeImage('forwardJump');
+       mario.setSpeed(2, -90);
      }
  }
 
