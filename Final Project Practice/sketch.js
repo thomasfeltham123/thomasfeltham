@@ -38,6 +38,7 @@ function preload(){
   // skyImg = loadImage('assets/SkyBackground11.png');
   // skyBackground = createSprite(0, 0);
   // skyBackground.addImage(skyImg);
+  mario.collide(groundImg);
 }
 
 function setup() {
