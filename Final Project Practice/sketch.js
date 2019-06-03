@@ -5,6 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+let jumping = false;
+let jumpSpeed = 3;
 let direction = 360;
 let ground, skyImg;
 let mario;
@@ -13,9 +15,9 @@ let forwardRest, forwardRun, backwardsRun, forwardJump;
 function preload(){
 
   //Loads mario resting
-  forwardRest = loadAnimation('assets/Forward resting00.png', 'assets/Backwards resting01.png');
-  mario = createSprite(0, 107, 100, 100);
-  mario.addAnimation('forward', 'assets/Forward resting00.png', 'assets/Backwards resting01.png');
+  forwardRest = loadAnimation('assets/Forward resting00.png');
+  mario = createSprite(0, 107, 0, 0, );
+  mario.addAnimation('forward', 'assets/Forward resting00.png');
 
   //Loads images needed to animate Mario running forward.
   forwardRun = loadAnimation('assets/Forward02.png' , 'assets/Forward04.png');
@@ -24,6 +26,7 @@ function preload(){
   //Loads animation for mario running backwards
   backwardsRun = loadAnimation('assets/Backwards08.png' , 'assets/Backwards10.png');
   mario.addAnimation('backwards run' , 'assets/Backwards08.png' , 'assets/Backwards10.png');
+
 
   //Loads image of mario jumping
   forwardJump = loadAnimation('assets/Forward Jump05.png');
@@ -34,11 +37,6 @@ function preload(){
   ground = createSprite(-40, 100);
   ground.addImage(groundImg);
 
-  //Loads the blue sky and clouds from mario
-  // skyImg = loadImage('assets/SkyBackground11.png');
-  // skyBackground = createSprite(0, 0);
-  // skyBackground.addImage(skyImg);
-  mario.collide(groundImg);
 }
 
 function setup() {
@@ -60,8 +58,9 @@ function makeSprites(){
 }
 
 function moving(){
- if(keyDown(RIGHT_ARROW)){
-   mario.changeAnimation('forward run');
+  
+    if(keyDown(RIGHT_ARROW)){
+    mario.changeAnimation('forward run');
     mario.setSpeed(2, direction);
    }
 
@@ -71,10 +70,20 @@ function moving(){
      }
 
      if(keyDown(UP_ARROW)){
+       jumping = true;
+       jumpSpeed = 3;
        mario.changeImage('forwardJump');
-       mario.setSpeed(2, -90);
+       mario.setSpeed(jumpSpeed, -90);
+       
      }
- }
 
+      if(jumping){
+        jumpSpeed -= 0.1;
+         mario.setSpeed(jumpSpeed, -90);
+      }
 
-
+       if(mario.collide(ground) === true){
+          mario.changeImage('forward')
+           jumping = false;
+       }
+    }
