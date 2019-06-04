@@ -8,7 +8,7 @@
 let jumping = false;
 let jumpSpeed = 3;
 let direction = 360;
-let ground, skyImg;
+let ground, gTube;
 let mario;
 let forwardRest, forwardRun, backwardsRun, forwardJump;
 
@@ -16,7 +16,7 @@ function preload(){
 
   //Loads mario resting
   forwardRest = loadAnimation('assets/Forward resting00.png');
-  mario = createSprite(0, 107, 0, 0, );
+  mario = createSprite(0, 90, 0, 0, );
   mario.addAnimation('forward', 'assets/Forward resting00.png');
 
   //Loads images needed to animate Mario running forward.
@@ -32,12 +32,19 @@ function preload(){
   forwardJump = loadAnimation('assets/Forward Jump05.png');
   mario.addAnimation('forwardJump' , 'assets/Forward Jump05.png');
 
-//Loads the image of the grass from Mario
+//Loads a image of the grass from Mario
   groundImg = loadImage('assets/Ground07.png');
   ground = createSprite(-40, 100);
   ground.addImage(groundImg);
 
+  //Loads an image of the green tube from mario
+gTube = loadImage('assets/Tube.png');
+tube = createSprite(90, 103);
+tube.addImage(gTube);
+
 }
+
+
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
