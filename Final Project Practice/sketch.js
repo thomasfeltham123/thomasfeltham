@@ -6,7 +6,7 @@
 // - describe what you did to take this project "above and beyond"
 
 let jumping = false;
-let jumpSpeed = 3;
+let jumpSpeed = 4;
 let direction = 360;
 let ground, gTube;
 let mario;
@@ -16,7 +16,7 @@ function preload(){
 
   //Loads mario resting
   forwardRest = loadAnimation('assets/Forward resting00.png');
-  mario = createSprite(0, 90, 0, 0, );
+  mario = createSprite(200, 660);
   mario.addAnimation('forward', 'assets/Forward resting00.png');
 
   //Loads images needed to animate Mario running forward.
@@ -33,14 +33,14 @@ function preload(){
   mario.addAnimation('forwardJump' , 'assets/Forward Jump05.png');
 
 //Loads a image of the grass from Mario
-  groundImg = loadImage('assets/Ground07.png');
-  ground = createSprite(-40, 100);
+  groundImg = loadImage('assets/Ground07 - Copy.png');
+  ground = createSprite(0, 810);
   ground.addImage(groundImg);
 
   //Loads an image of the green tube from mario
-gTube = loadImage('assets/Tube.png');
-tube = createSprite(90, 103);
-tube.addImage(gTube);
+  gTube = loadImage('assets/Tube.png');
+  tube = createSprite(700, 650);
+  tube.addImage(gTube);
 
 }
 
@@ -52,14 +52,14 @@ function setup() {
 
 function draw() {
   background(70, 140, 180);
-  makeSprites();
+  //makeSprites();
+  drawSprites();
   moving();
 }
 
 function makeSprites(){
   push(); 
-  translate(width/2, height/2)
-  scale(2);
+  //translate(width/2, height/2)
   drawSprites();
   pop();
 }
@@ -68,12 +68,12 @@ function moving(){
   
     if(keyDown(RIGHT_ARROW)){
     mario.changeAnimation('forward run');
-    mario.setSpeed(2, direction);
+    mario.setSpeed(3, direction);
    }
 
    if(keyDown(LEFT_ARROW)){
      mario.changeAnimation('backwards run');
-    mario.setSpeed(2, direction-180);
+    mario.setSpeed(3, direction-180);
      }
 
      if(keyDown(UP_ARROW)){
@@ -89,8 +89,8 @@ function moving(){
          mario.setSpeed(jumpSpeed, -90);
       }
 
-       if(mario.collide(ground) === true){
-          mario.changeImage('forward')
-           jumping = false;
-       }
+        if(mario.collide(ground) === true){
+           mario.changeImage('forward')
+            jumping = false;
+      }
     }
