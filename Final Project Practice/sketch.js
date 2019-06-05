@@ -5,18 +5,22 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+let fRunning = false;
+let runSpeed = 3;
 let jumping = false;
-let jumpSpeed = 4;
+let jumpSpeed = 5;
 let direction = 360;
 let ground, gTube;
 let mario;
 let forwardRest, forwardRun, backwardsRun, forwardJump;
 
+
+//The preload function loads all images and animations
 function preload(){
 
   //Loads mario resting
   forwardRest = loadAnimation('assets/Forward resting00.png');
-  mario = createSprite(200, 660);
+  mario = createSprite(200, 675);
   mario.addAnimation('forward', 'assets/Forward resting00.png');
 
   //Loads images needed to animate Mario running forward.
@@ -34,12 +38,12 @@ function preload(){
 
 //Loads a image of the grass from Mario
   groundImg = loadImage('assets/Ground07 - Copy.png');
-  ground = createSprite(0, 810);
+  ground = createSprite(450, 840);
   ground.addImage(groundImg);
 
   //Loads an image of the green tube from mario
   gTube = loadImage('assets/Tube.png');
-  tube = createSprite(700, 650);
+  tube = createSprite(700, 640);
   tube.addImage(gTube);
 
 }
@@ -48,49 +52,57 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  mario.collide(tube);
 }
 
 function draw() {
   background(70, 140, 180);
-  //makeSprites();
-  drawSprites();
-  moving();
-}
 
-function makeSprites(){
-  push(); 
-  //translate(width/2, height/2)
   drawSprites();
-  pop();
-}
-
-function moving(){
   
-    if(keyDown(RIGHT_ARROW)){
-    mario.changeAnimation('forward run');
-    mario.setSpeed(3, direction);
-   }
+  moving();
 
+}
+
+
+
+//This function provides all movements for Mario
+function moving(){
+  //This if statement makes Mario run forward
+    if(keyDown(RIGHT_ARROW)){
+      if(mario.collide(tube) === false){
+      runSpeed = 3;
+        mario.changeAnimation('forward run');
+        mario.setSpeed(runSpeed, direction);//Right
+      }else{
+          runSpeed = 0;
+        
+      }
+    }
+   
+// This if statement makes Mario run towards the left
    if(keyDown(LEFT_ARROW)){
      mario.changeAnimation('backwards run');
-    mario.setSpeed(3, direction-180);
+    mario.setSpeed(3, direction-180);//Left
      }
 
+     //These if statements make Mario jump as well as let 
+     //him know when hes on the ground
      if(keyDown(UP_ARROW)){
-       jumping = true;
-       jumpSpeed = 3;
+       if(jumping === false){
+      jumping = true;
+       jumpSpeed = 5;
        mario.changeImage('forwardJump');
        mario.setSpeed(jumpSpeed, -90);
-       
+       }
      }
 
-      if(jumping){
-        jumpSpeed -= 0.1;
-         mario.setSpeed(jumpSpeed, -90);
-      }
-
-        if(mario.collide(ground) === true){
-           mario.changeImage('forward')
-            jumping = false;
+     if(jumping){
+      jumpSpeed -= 0.1;
+       mario.setSpeed(jumpSpeed, -90);
+    }
+      if(mario.collide(ground) === true){
+         mario.changeImage('forward')
+          jumping = false;
       }
     }
