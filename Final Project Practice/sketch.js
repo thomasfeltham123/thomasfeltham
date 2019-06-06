@@ -10,7 +10,7 @@ let runSpeed = 3;
 let jumping = false;
 let jumpSpeed = 5;
 let direction = 360;
-let ground, gTube;
+let ground, gTube, gTubeTop;
 let mario;
 let forwardRest, forwardRun, backwardsRun, forwardJump;
 
@@ -42,8 +42,12 @@ function preload(){
   ground.addImage(groundImg);
 
   //Loads an image of the green tube from mario
+  gTubeTop = loadImage('assets/TubeTop.png');
+  tubeTop = createSprite(700, 593);
+  tubeTop.addImage(gTubeTop);
+
   gTube = loadImage('assets/Tube.png');
-  tube = createSprite(700, 640);
+  tube = createSprite(700, 655);
   tube.addImage(gTube);
 
 }
@@ -52,6 +56,7 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  mario.collide(tubeTop);
   mario.collide(tube);
 }
 
@@ -70,16 +75,21 @@ function draw() {
 function moving(){
   //This if statement makes Mario run forward
     if(keyDown(RIGHT_ARROW)){
-      if(mario.collide(tube) === false){
-      runSpeed = 3;
-        mario.changeAnimation('forward run');
-        mario.setSpeed(runSpeed, direction);//Right
-      }else{
-          runSpeed = 0;
-        
+      if(mario.collide(tubeTop)){
+        mario.setSpeed(0, direction);
       }
-    }
-   
+       else if(mario.collide(tube)){
+          mario.setSpeed(0, direction);
+        }
+        else{
+          runSpeed = 3;
+          mario.changeAnimation('forward run');
+          mario.setSpeed(runSpeed, direction);//Right
+        }
+      }
+
+
+
 // This if statement makes Mario run towards the left
    if(keyDown(LEFT_ARROW)){
      mario.changeAnimation('backwards run');
