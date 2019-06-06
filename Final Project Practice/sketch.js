@@ -58,6 +58,7 @@ function setup() {
   createCanvas(windowWidth, windowHeight);
   mario.collide(tubeTop);
   mario.collide(tube);
+  mario.collide(tubeTop);
 }
 
 function draw() {
@@ -92,19 +93,27 @@ function moving(){
 
 // This if statement makes Mario run towards the left
    if(keyDown(LEFT_ARROW)){
-     mario.changeAnimation('backwards run');
-    mario.setSpeed(3, direction-180);//Left
+    if(mario.collide(tubeTop)){
+      mario.setSpeed(0, direction-180);
+    }
+     else if(mario.collide(tube)){
+        mario.setSpeed(0, direction-180);
+      }
+      else{
+        runSpeed = 3;
+        mario.changeAnimation('backwards run');
+        mario.setSpeed(runSpeed, direction-180);//Left
+      }
      }
+
 
      //These if statements make Mario jump as well as let 
      //him know when hes on the ground
      if(keyDown(UP_ARROW)){
-       if(jumping === false){
       jumping = true;
-       jumpSpeed = 5;
-       mario.changeImage('forwardJump');
-       mario.setSpeed(jumpSpeed, -90);
-       }
+      jumpSpeed = 5;
+      mario.changeImage('forwardJump')
+      mario.setSpeed(jumpSpeed, -90)
      }
 
      if(jumping){
