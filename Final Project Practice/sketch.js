@@ -34,10 +34,11 @@ function preload(){
   forwardJump = loadAnimation('assets/Forward Jump05.png');
   mario.addAnimation('forwardJump' , 'assets/Forward Jump05.png');
 
-  //Loads the images for the goomba
-  bot = loadAnimation('assets/goomba12.png' , 'assets/goomba16.png');
-  goomba = createSprite(850, 670);
-  goomba.addAnimation('running', 'assets/goomba12.png' , 'assets/goomba16.png');
+   //Loads the images for the goomba
+   bot = loadAnimation('assets/goomba12.png' , 'assets/goomba16.png');
+   goomba = createSprite(850, 670);
+   goomba.addAnimation('running', 'assets/goomba12.png' , 'assets/goomba16.png');
+   goomba.position.x +=1;
   
 
 //Loads a image of the grass from Mario
@@ -46,13 +47,13 @@ function preload(){
   ground.addImage(groundImg);
 
   //Loads an image of the green tube from mario
-  gTubeTop = loadImage('assets/TubeTop.png');
-  tubeTop = createSprite(700, 593);
-  tubeTop.addImage(gTubeTop);
+   gTubeTop = loadImage('assets/TubeTop.png');
+   tubeTop = createSprite(700, 593);
+   tubeTop.addImage(gTubeTop);
 
-  gTube = loadImage('assets/Tube.png');
-  tube = createSprite(700, 655);
-  tube.addImage(gTube);
+   gTube = loadImage('assets/Tube.png');
+   tube = createSprite(700, 655);
+   tube.addImage(gTube);
 
 }
 
@@ -61,6 +62,7 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
   mario.collide(ground);
+  mario.collide(goomba);
   mario.collide(tube);
   mario.collide(tubeTop);
 }
@@ -78,25 +80,25 @@ function draw() {
 
 //This function provides all movements for Mario
 function moving(){
-  //This if statement makes Mario run forward
-  if(keyIsDown(RIGHT_ARROW)){
-    if(mario.collide(tubeTop)){
-      mario.setSpeed(0, direction);
-    }
-     else if(mario.collide(tube)){
+  //This if statement makes Mario run forward and checks for collision
+  if(keyDown(RIGHT_ARROW)){
+      if(mario.collide(tubeTop)){
         mario.setSpeed(0, direction);
       }
-      else{
-        runSpeed = 3;
-        mario.changeAnimation('forward run');
-        mario.setSpeed(runSpeed, direction);//Right
-      }
+       else if(mario.collide(tube)){
+         mario.setSpeed(0, direction);
+        }
+        else{
+         runSpeed = 3;
+         mario.changeAnimation('forward run');
+         mario.setSpeed(runSpeed, direction);//Right
+       }
+    
     }
     
 
 
-
-// This if statement makes Mario run towards the left
+// This if statement makes Mario run towards the left and checks for collision
  if(keyDown(LEFT_ARROW)){
   if(mario.collide(tubeTop)){
     mario.setSpeed(0, direction-180);
@@ -116,16 +118,21 @@ function moving(){
      //These if statements make Mario jump as well as let 
      //him know when hes on the ground
       if(keyDown(UP_ARROW)){
-       jumping = true;
-       jumpSpeed = 5;
-       mario.changeImage('forwardJump')
-       mario.setSpeed(jumpSpeed, -90)
+        if(jumping === false){
+        jumping = true;
+        jumpSpeed = 5;
+        mario.changeImage('forwardJump')
+        mario.setSpeed(jumpSpeed, -90)
       }
+    }
 
       if(jumping){
-       jumpSpeed -= 0.1;
+        mario.position.x += 1;
+        jumpSpeed -= 0.1;
         mario.setSpeed(jumpSpeed, -90);
-     }
+        }
+      
+
        if(mario.collide(ground) === true){
           mario.changeImage('forward')
            jumping = false;
