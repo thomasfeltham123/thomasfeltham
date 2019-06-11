@@ -5,6 +5,8 @@
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
 
+//let goombaObjects = [];
+let runSpeed = 0;
 let jumping = false;
 let jumpSpeed = 5;
 let direction = 360;
@@ -36,9 +38,10 @@ function preload(){
 
    //Loads the images for the goomba
    bot = loadAnimation('assets/goomba12.png' , 'assets/goomba16.png');
-   goomba = createSprite(850, 670);
+   goomba = createSprite(900, 670);
    goomba.addAnimation('running', 'assets/goomba12.png' , 'assets/goomba16.png');
-   goomba.position.x +=1;
+   goomba.position.x -= 6;
+   
   
 
 //Loads a image of the grass from Mario
@@ -82,16 +85,18 @@ function draw() {
 function moving(){
   //This if statement makes Mario run forward and checks for collision
   if(keyDown(RIGHT_ARROW)){
+    mario.changeAnimation('forward run');
+    mario.position.x += runSpeed;//Right
       if(mario.collide(tubeTop)){
-        mario.setSpeed(0, direction);
+        mario.position.x += runSpeed;
       }
        else if(mario.collide(tube)){
-         mario.setSpeed(0, direction);
+         mario.position.x += runSpeed;
         }
         else{
          runSpeed = 3;
-         mario.changeAnimation('forward run');
-         mario.setSpeed(runSpeed, direction);//Right
+         //mario.changeAnimation('forward run');
+         //mario.position.x += runSpeed;//Right
        }
     
     }
@@ -100,16 +105,18 @@ function moving(){
 
 // This if statement makes Mario run towards the left and checks for collision
  if(keyDown(LEFT_ARROW)){
+  mario.changeAnimation('backwards run');
+  mario.position.x += runSpeed;//Left
   if(mario.collide(tubeTop)){
-    mario.setSpeed(0, direction-180);
+    mario.position.x += runSpeed;
   }
    else if(mario.collide(tube)){
-      mario.setSpeed(0, direction-180);
+      mario.position.x += runSpeed;
     }
     else{
-      runSpeed = 3;
-      mario.changeAnimation('backwards run');
-      mario.setSpeed(runSpeed, direction-180);//Left
+      runSpeed = -3;
+      //mario.changeAnimation('backwards run');
+      //mario.position.x += runSpeed;//Left
     }
    }
 
@@ -127,13 +134,14 @@ function moving(){
     }
 
       if(jumping){
-        mario.position.x += 1;
+       
         jumpSpeed -= 0.1;
         mario.setSpeed(jumpSpeed, -90);
         }
       
 
        if(mario.collide(ground) === true){
+         mario.position.y -= 0.1;
           mario.changeImage('forward')
            jumping = false;
        }
@@ -141,5 +149,6 @@ function moving(){
         mario.changeImage('forward')
         jumping = false;
      }
-     
     }
+
+       
