@@ -4,14 +4,15 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-let level = 0;
+//let bombImg;
+let bombArray = [];
 let marioPos;
 let runSpeed = 0;
 let jumping = false;
 let jumpSpeed = 5;
 let direction = 360;
 let ground, gTube, gTubeTop;
-let mario, bot, goomba;
+let mario, bombImg, bomb;
 let forwardRest, forwardRun, backwardsRun, forwardJump;
 
 
@@ -20,7 +21,7 @@ function preload(){
 
   //Loads mario resting
   forwardRest = loadAnimation('assets/Forward resting00.png');
-  // mario = createSprite(200, 675);
+   mario = createSprite(200, 675);
    mario.addAnimation('forward', 'assets/Forward resting00.png');
 
   //Loads images needed to animate Mario running forward.
@@ -34,58 +35,52 @@ function preload(){
 
   //Loads image of mario jumping
   forwardJump = loadAnimation('assets/Forward Jump05.png');
-  mario.addAnimation('forwardJump' , 'assets/Forward Jump05.png');
-
-  //  //Loads the images for the goomba
-  //  bot = loadAnimation('assets/goomba12.png' , 'assets/goomba16.png');
-  //  goomba = createSprite(900, 670);
-  //  goomba.addAnimation('running', 'assets/goomba12.png' , 'assets/goomba16.png');
-  //  goomba.position.x -= 6;
-   
+  mario.addAnimation('forwardJump' , 'assets/Forward Jump05.png'); 
   
 
 //Loads a image of the grass from Mario
   groundImg = loadImage('assets/Ground07 - Copy.png');
-  // ground = createSprite(450, 840);
-  // ground.addImage(groundImg);
+   ground = createSprite(450, 840);
+   ground.addImage(groundImg);
 
   //Loads an image of the green tube from mario
    gTubeTop = loadImage('assets/TubeTop.png');
-  //  tubeTop = createSprite(700, 593);
-  //  tubeTop.addImage(gTubeTop);
+    tubeTop = createSprite(700, 593);
+    tubeTop.addImage(gTubeTop);
 
    gTube = loadImage('assets/Tube.png');
-  //  tube = createSprite(700, 655);
-  //  tube.addImage(gTube);
+    tube = createSprite(700, 655);
+    tube.addImage(gTube);
 
-   //Loads image of lava from Mario
-   lavaImg = loadImage('assets/Lava.png')
-   
-   //lava.addImage(lavaImg);
-
+  
+  
 }
 
 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  // mario.collide(ground);
-  // //mario.collide(goomba);
-  // mario.collide(tube);
-  // mario.collide(tubeTop);
+   mario.collide(ground);
+  //mario.collide(bomb);
+   mario.collide(tube);
+   mario.collide(tubeTop);
 }
 
 function draw() {
 
   background(70, 140, 180);
 
-  
-  levelOne();
-
+  drawSprites();
 
   moving();
 
-  newLevel();
+
+  bombArray.push(new Bomb(this.x, this.y));
+
+  for(let i = 0; i<bombArray.length; i++){
+    bombArray[i].move();
+    bombArray.display();
+  }
 
 }
 
@@ -173,47 +168,32 @@ function moving(){
     }
 
 
+class Bomb{
 
-    function levelOne(){
+  constructor(){
+    this.x = random(0, width);
+    this.y = 10;
+    this.GRAVITY = -0.02;
+    this.bombImg = loadImage('assets/Bomb.png');
+    this.size = 50;
+  }
 
-      marioPos = mario.position.x;
+  move(){
+    this.ySpeed = this.GRAVITY;
+    this.floorCollision();
 
-      mario.collide(ground);
-      //mario.collide(goomba);
-      mario.collide(tube);
-      mario.collide(tubeTop);
+  }
 
-      mario = createSprite(200, 675);
-      mario.addAnimation('forward', 'assets/Forward resting00.png');
+  display(){
+    image(bombImg, 0, 0, this.size, this.size);
+  }
+
+  floorCollision(){
+    if(this.y > height){
+      this.ySpeed *= -1;
+    }
+  }
+}
+
 
     
-      ground = createSprite(450, 840);
-      ground.addImage(groundImg);
-
-      tubeTop = createSprite(700, 593);
-      tubeTop.addImage(gTubeTop);
-
-      tube = createSprite(700, 655);
-      tube.addImage(gTube);
-
-      drawSprites();
-    }
-
-       
-      
-       
-
-     function newLevel(){
-   
-      if(marioPos >= width){
-        level = 1;
-      }
-
-      if(level = 1){
-        //background(250, 110, 80);
-        lava = createSprite(100, 100);
-        lava.addImage(lavaImg);
-        print("a");
-      }
-
-     }
