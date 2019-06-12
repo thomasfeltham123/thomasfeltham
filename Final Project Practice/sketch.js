@@ -4,8 +4,8 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-
-//let goombaObjects = [];
+let level = 0;
+let marioPos;
 let runSpeed = 0;
 let jumping = false;
 let jumpSpeed = 5;
@@ -20,12 +20,12 @@ function preload(){
 
   //Loads mario resting
   forwardRest = loadAnimation('assets/Forward resting00.png');
-  mario = createSprite(200, 675);
-  mario.addAnimation('forward', 'assets/Forward resting00.png');
+  // mario = createSprite(200, 675);
+   mario.addAnimation('forward', 'assets/Forward resting00.png');
 
   //Loads images needed to animate Mario running forward.
-  forwardRun = loadAnimation('assets/Forward02.png' , 'assets/Forward04.png');
-  mario.addAnimation('forward run', 'assets/Forward02.png' , 'assets/Forward04.png');
+   forwardRun = loadAnimation('assets/Forward02.png' , 'assets/Forward04.png');
+   mario.addAnimation('forward run', 'assets/Forward02.png' , 'assets/Forward04.png');
 
   //Loads animation for mario running backwards
   backwardsRun = loadAnimation('assets/Backwards08.png' , 'assets/Backwards10.png');
@@ -36,27 +36,32 @@ function preload(){
   forwardJump = loadAnimation('assets/Forward Jump05.png');
   mario.addAnimation('forwardJump' , 'assets/Forward Jump05.png');
 
-   //Loads the images for the goomba
-   bot = loadAnimation('assets/goomba12.png' , 'assets/goomba16.png');
-   goomba = createSprite(900, 670);
-   goomba.addAnimation('running', 'assets/goomba12.png' , 'assets/goomba16.png');
-   goomba.position.x -= 6;
+  //  //Loads the images for the goomba
+  //  bot = loadAnimation('assets/goomba12.png' , 'assets/goomba16.png');
+  //  goomba = createSprite(900, 670);
+  //  goomba.addAnimation('running', 'assets/goomba12.png' , 'assets/goomba16.png');
+  //  goomba.position.x -= 6;
    
   
 
 //Loads a image of the grass from Mario
   groundImg = loadImage('assets/Ground07 - Copy.png');
-  ground = createSprite(450, 840);
-  ground.addImage(groundImg);
+  // ground = createSprite(450, 840);
+  // ground.addImage(groundImg);
 
   //Loads an image of the green tube from mario
    gTubeTop = loadImage('assets/TubeTop.png');
-   tubeTop = createSprite(700, 593);
-   tubeTop.addImage(gTubeTop);
+  //  tubeTop = createSprite(700, 593);
+  //  tubeTop.addImage(gTubeTop);
 
    gTube = loadImage('assets/Tube.png');
-   tube = createSprite(700, 655);
-   tube.addImage(gTube);
+  //  tube = createSprite(700, 655);
+  //  tube.addImage(gTube);
+
+   //Loads image of lava from Mario
+   lavaImg = loadImage('assets/Lava.png')
+   
+   //lava.addImage(lavaImg);
 
 }
 
@@ -64,18 +69,23 @@ function preload(){
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  mario.collide(ground);
-  mario.collide(goomba);
-  mario.collide(tube);
-  mario.collide(tubeTop);
+  // mario.collide(ground);
+  // //mario.collide(goomba);
+  // mario.collide(tube);
+  // mario.collide(tubeTop);
 }
 
 function draw() {
+
   background(70, 140, 180);
 
-  drawSprites();
+  
+  levelOne();
+
 
   moving();
+
+  newLevel();
 
 }
 
@@ -87,15 +97,18 @@ function moving(){
   if(keyDown(RIGHT_ARROW)){
     mario.changeAnimation('forward run');
     mario.position.x += runSpeed;//Right
+    ground.position.x -= 0.3;
+    tube.position.x -= 0.5;
+    tubeTop.position.x -= 0.5;
       if(mario.collide(tubeTop)){
-        mario.position.x += runSpeed;
+        mario.position.x += 0;
       }
        else if(mario.collide(tube)){
-         mario.position.x += runSpeed;
+         mario.position.x += 0;
         }
         else{
          runSpeed = 3;
-         //mario.changeAnimation('forward run');
+         mario.changeAnimation('forward run');
          //mario.position.x += runSpeed;//Right
        }
     
@@ -107,6 +120,9 @@ function moving(){
  if(keyDown(LEFT_ARROW)){
   mario.changeAnimation('backwards run');
   mario.position.x += runSpeed;//Left
+  ground.position.x += 0.3;
+  tube.position.x += 0.5;
+  tubeTop.position.x += 0.5;
   if(mario.collide(tubeTop)){
     mario.position.x += runSpeed;
   }
@@ -115,7 +131,7 @@ function moving(){
     }
     else{
       runSpeed = -3;
-      //mario.changeAnimation('backwards run');
+      mario.changeAnimation('backwards run');
       //mario.position.x += runSpeed;//Left
     }
    }
@@ -134,7 +150,9 @@ function moving(){
     }
 
       if(jumping){
-       
+        //ground.position.y += 0.2;
+        //tube.position.y += 0.2;
+        //tubeTop.position.y += 0.2;
         jumpSpeed -= 0.1;
         mario.setSpeed(jumpSpeed, -90);
         }
@@ -143,6 +161,9 @@ function moving(){
        if(mario.collide(ground) === true){
          mario.position.y -= 0.1;
           mario.changeImage('forward')
+         // ground.position.y -= 0.2;
+         // tube.position.y -= 0.2;
+         // tubeTop.position.y -= 0.2;
            jumping = false;
        }
        if(mario.collide(tubeTop) === true){
@@ -151,4 +172,48 @@ function moving(){
      }
     }
 
+
+
+    function levelOne(){
+
+      marioPos = mario.position.x;
+
+      mario.collide(ground);
+      //mario.collide(goomba);
+      mario.collide(tube);
+      mario.collide(tubeTop);
+
+      mario = createSprite(200, 675);
+      mario.addAnimation('forward', 'assets/Forward resting00.png');
+
+    
+      ground = createSprite(450, 840);
+      ground.addImage(groundImg);
+
+      tubeTop = createSprite(700, 593);
+      tubeTop.addImage(gTubeTop);
+
+      tube = createSprite(700, 655);
+      tube.addImage(gTube);
+
+      drawSprites();
+    }
+
        
+      
+       
+
+     function newLevel(){
+   
+      if(marioPos >= width){
+        level = 1;
+      }
+
+      if(level = 1){
+        //background(250, 110, 80);
+        lava = createSprite(100, 100);
+        lava.addImage(lavaImg);
+        print("a");
+      }
+
+     }
