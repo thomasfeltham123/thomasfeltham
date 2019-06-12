@@ -79,7 +79,7 @@ function draw() {
 
   for(let i = 0; i<bombArray.length; i++){
     bombArray[i].move();
-    bombArray.display();
+    bombArray[i].display();
   }
 
 }
@@ -171,7 +171,7 @@ function moving(){
 class Bomb{
 
   constructor(){
-    this.x = random(0, width);
+    this.x = random(0, 1000);
     this.y = 10;
     this.GRAVITY = -0.02;
     this.bombImg = loadImage('assets/Bomb.png');
