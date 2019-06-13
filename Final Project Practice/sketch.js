@@ -4,7 +4,7 @@
 //
 // Extra for Experts:
 // - describe what you did to take this project "above and beyond"
-//let bombImg;
+let gameOver = false;
 let bombArray = [];
 let marioPos;
 let runSpeed = 0;
@@ -18,6 +18,8 @@ let forwardRest, forwardRun, backwardsRun, forwardJump;
 
 //The preload function loads all images and animations
 function preload(){
+
+  bombImg = loadImage('assets/Bomb.png');
 
   //Loads mario resting
   forwardRest = loadAnimation('assets/Forward resting00.png');
@@ -51,8 +53,6 @@ function preload(){
    gTube = loadImage('assets/Tube.png');
     tube = createSprite(700, 655);
     tube.addImage(gTube);
-
-  
   
 }
 
@@ -74,12 +74,15 @@ function draw() {
 
   moving();
 
+  touchBomb();
 
-  bombArray.push(new Bomb(this.x, this.y));
-
+  if(frameCount % 200 === 0){
+  bombArray.push(new Bomb(random(0, width), 0));
+  }
   for(let i = 0; i<bombArray.length; i++){
     bombArray[i].move();
     bombArray[i].display();
+    bombArray[i].playerCollision();
   }
 
 }
@@ -172,20 +175,22 @@ class Bomb{
 
   constructor(){
     this.x = random(0, 1000);
-    this.y = 10;
-    this.GRAVITY = -0.02;
-    this.bombImg = loadImage('assets/Bomb.png');
+    this.ySpeed = 5;
+    this.y = 0;
+    this.GRAVITY = 0.05;
+    
     this.size = 50;
   }
 
   move(){
-    this.ySpeed = this.GRAVITY;
+    this.ySpeed += this.GRAVITY;
+    this.y += this.ySpeed;
     this.floorCollision();
 
   }
 
   display(){
-    image(bombImg, 0, 0, this.size, this.size);
+    image(bombImg, this.x, this.y, this.size, this.size);
   }
 
   floorCollision(){
@@ -193,7 +198,27 @@ class Bomb{
       this.ySpeed *= -1;
     }
   }
+
+  playerCollision(){
+    if(mario.position.x < this.x + 40 && mario.position.x + 40 > this.x){
+      if(mario.position.y < this.y + 40 && mario.position.y + 50 > this.y){
+        gameOver = true;
+        print("hit");
+      }
+    }
+  }
 }
 
+function touchBomb(){
+
+  if(gameOver === true){
+    background(255);
+
+    textSize(100);
+    text('Game Over', width/2, height/2);
+
+
+  }
+}
 
     
