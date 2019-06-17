@@ -93,6 +93,7 @@ function draw() {
 function moving(){
   //This if statement makes Mario run forward and checks for collision
   if(keyDown(RIGHT_ARROW)){
+    print("f");
     mario.changeAnimation('forward run');
     mario.position.x += runSpeed;//Right
     ground.position.x -= 0.3;
@@ -116,6 +117,7 @@ function moving(){
 
 // This if statement makes Mario run towards the left and checks for collision
  if(keyDown(LEFT_ARROW)){
+  print("b");
   mario.changeAnimation('backwards run');
   mario.position.x += runSpeed;//Left
   ground.position.x += 0.3;
@@ -139,6 +141,7 @@ function moving(){
      //These if statements make Mario jump as well as let 
      //him know when hes on the ground
        if(keyDown(UP_ARROW)){
+        print("u");
          if(jumping === false){
          jumping = true;
          jumpSpeed = 5;
@@ -157,8 +160,9 @@ function moving(){
       
 
        if(mario.collide(ground) === true){
+        print("G");
          mario.position.y -= 0.1;
-          mario.changeImage('forward')
+          //mario.changeImage('forward')
          // ground.position.y -= 0.2;
          // tube.position.y -= 0.2;
          // tubeTop.position.y -= 0.2;
