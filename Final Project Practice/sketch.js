@@ -138,14 +138,14 @@ function moving(){
 
      //These if statements make Mario jump as well as let 
      //him know when hes on the ground
-      if(keyDown(UP_ARROW)){
-        if(jumping === false){
-        jumping = true;
-        jumpSpeed = 5;
-        mario.changeImage('forwardJump')
-        mario.setSpeed(jumpSpeed, -90)
-      }
-    }
+       if(keyDown(UP_ARROW)){
+         if(jumping === false){
+         jumping = true;
+         jumpSpeed = 5;
+         mario.changeImage('forwardJump')
+         mario.setSpeed(jumpSpeed, -90)
+       }
+     }
 
       if(jumping){
         //ground.position.y += 0.2;
