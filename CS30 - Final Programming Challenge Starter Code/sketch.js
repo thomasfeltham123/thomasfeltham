@@ -92,6 +92,7 @@ function keyPressed(){
   if(key === 'w'){
 
     //This will move the fox around the canvas as well as tell it he had a pepsi or not
+    //It also picks what sprite is visible based on the direction they are facing
     if(pepsi){
       direction = 2; //Up
       imgSize = imgSize + random(-12, 12);
@@ -195,7 +196,7 @@ function mouseClicked(){
 
 
   function boundaries(){
-
+//These if statements are just checking if the player is at the edge of the screen
       if(foxX > width){
         foxX = width;
       }
