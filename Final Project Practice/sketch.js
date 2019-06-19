@@ -61,7 +61,6 @@ function preload(){
 function setup() {
   createCanvas(windowWidth, windowHeight);
    mario.collide(ground);
-  //mario.collide(bomb);
    mario.collide(tube);
    mario.collide(tubeTop);
 }
@@ -132,7 +131,6 @@ function moving(){
     else{
       runSpeed = -3;
       mario.changeAnimation('backwards run');
-      //mario.position.x += runSpeed;//Left
     }
    }
 
@@ -151,9 +149,6 @@ function moving(){
      }
 
       if(jumping){
-        //ground.position.y += 0.2;
-        //tube.position.y += 0.2;
-        //tubeTop.position.y += 0.2;
         jumpSpeed -= 0.1;
         mario.setSpeed(jumpSpeed, -90);
         }
@@ -162,10 +157,6 @@ function moving(){
        if(mario.collide(ground) === true){
         print("G");
          mario.position.y -= 0.1;
-          //mario.changeImage('forward')
-         // ground.position.y -= 0.2;
-         // tube.position.y -= 0.2;
-         // tubeTop.position.y -= 0.2;
            jumping = false;
        }
        if(mario.collide(tubeTop) === true){
@@ -174,7 +165,8 @@ function moving(){
      }
     }
 
-
+//This class creates all of the bombs and sets a random spawn position
+// It also creates all movements
 class Bomb{
 
   constructor(){
